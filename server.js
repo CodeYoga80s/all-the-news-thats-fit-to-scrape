@@ -1,30 +1,30 @@
-//////////////////////////////////////////////// /* Imports */ //////////////////////////////////////////////////////////
-let express = require('express'); // Express Server
-let bodyParser = require('body-parser'); // Post Body Request
-let exphbs = require('express-handlebars'); // Templating Engine
-var db = require("./models"); // Require all models
+ /*  Importing everything */
+let express = require('express'); // Express
+let bodyParser = require('body-parser'); // Post requests
+let exphbs = require('express-handlebars'); // Views
+var db = require("./models"); // Models
 
 
-/////////////////////////////////////////////// /* Set Up Variables*/ //////////////////////////////////////////////////////////
+/* Variables*/
 
-let PORT = process.env.PORT || 8080; // Set Default Port for Express and Heroku
+let PORT = process.env.PORT || 8080; // Set up Express and Heroku
 let app = express(); // Initialize Express
 
-/////////////////////////////////////////////// /* Configure middleware */ //////////////////////////////////////////////////////////
+/* Middleware */
 
-// app.use(logger("dev")); // Use morgan logger for logging requests
-app.use(bodyParser.urlencoded({ extended: false })); // Use body-parser for handling form submissions
+
+app.use(bodyParser.urlencoded({ extended: false })); // Submission handling
 app.use(bodyParser.json());
-app.use(express.static("public")); // Serve static content for the app from the "public" directory in the application directory.
+app.use(express.static("public"));
 
-// Set Handlebars as the default templating engine.
+// Handlebars
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
-/////////////////////////////////////////////// /* Configure Routes */ //////////////////////////////////////////////////////////
-require("./controllers/webScrapperController.js")(app);
+/* Routes */
+require("./controllers/nprScraperController.js")(app);
 
-/////////////////////////////////////////////// /* Execution */ //////////////////////////////////////////////////////////
+/* Execution */
 
 app.listen(PORT, ()=>{
     console.log(`App listening on PORT ${PORT}`);

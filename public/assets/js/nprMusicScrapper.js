@@ -1,27 +1,26 @@
 $(document).ready(function() {
-  /////////////////////////////////////////////// /* Initialize Modals */ ////////////////////////////////////////////////////////
-  $('#saveModal').modal(); // Articles Saved Modal
-  $('#modalMessage').modal(); // Message Modal
-  $('#articleModal').modal(); // Notes Modal
+/* Modals */
+  $('#modalSave').modal(); // Articles Saved Modal
+  $('#messageModal').modal(); // Message Modal
+  $('#modalArticle').modal(); // Notes Modal
 
-  /////////////////////////////////////////////// /* Event Listeners */ ////////////////////////////////////////////////////////
+ /* Event Listeners */
   $('.searchArticle').on("click", () => { // Scrap Articles Request
-    // console.log("searchArticle Button clicked");
+
     fetch("/api/search", {method: "GET"}).then(() => window.location.replace("/api/search"));
-  }); // End searchArticle btn Click
+  }); 
 
-  $('.addArticle').on("click", function(element) { // Save an Article Request
+  $('.addArticle').on("click", function(element) { // Save Article Request
 
-    // console.log("Add Button clicked");
+
 
     let headline = $(this).attr("data-headline");
     let summary = $(this).attr("data-summary");
     let url = $(this).attr("data-url");
     let imageURL = $(this).attr("data-imageURL");
     let slug = $(this).attr("data-slug");
-    let modalID = $(this).attr("data-url") + "modal"
 
-    // Create JSON to be Sent to Backend
+
     let savedArticle = {
       headline,
       summary,
@@ -39,13 +38,13 @@ $(document).ready(function() {
       body: JSON.stringify(savedArticle)
     }).then((response) => {
       console.log(response)
-      $("#modalMessage").modal('open');
-      $("#modalMessage .modal-content ").html("<h4> Sucessfully Added Article </h4>");
-      setTimeout(() => $("#modalMessage").modal('close'), 1500);
+      $("#messageModal").modal('open');
+      $("#messageModal .modal-content ").html("<h4> Sucessfully Added Article </h4>");
+      setTimeout(() => $("#messageModal").modal('close'), 1500);
       $(document.getElementById(url)).css('display', 'none');
     });
 
-  }); // End addArticle Btn click
+  });
 
   $('.savedArticles').on("click", () => { // Query for Saved Articles
     console.log("Saved Button clicked");
@@ -66,7 +65,7 @@ $(document).ready(function() {
           let modalID = $(this).attr("id");
 
           let sessionArticle = JSON.parse(sessionStorage.getItem(modalID));
-          $('#articleModal').modal("open");
+          $('#modalArticle').modal("open");
           let title = $(this).children(".title").text();
           $('#articleID').text(title);
 
@@ -117,13 +116,13 @@ $(document).ready(function() {
                   $(".boxComments").prepend(notesDiv);
                 }
 
-                $(".deleteComment").on("click", function() { // Event Listener for Each Delete Note Button
-
+                $(".deleteComment").on("click", function() { 
+                  
                   let commentID = $(this).attr("data-id");
 
                   console.log("comment Id is" + commentID)
 
-                  fetch("/api/deleteComment", { // Send savedArticle to the Server
+                  fetch("/api/deleteComment", { // Send to server
                     method: 'POST',
                     headers: {
                       'Content-Type': 'application/json'
@@ -140,15 +139,15 @@ $(document).ready(function() {
               let notesDiv = "<div class='col s12 m7'><div class='card horizontal'><div class='card-image'><img src='https://lorempixel.com/100/190/nature/6'></div><div class='card-stacked center'><div class='card-content valign-wrapper'><p>No Notes.</p></div></div></div></div>";
               $(".boxComments").prepend(notesDiv);
             }
-          }); // End of APi Populate Note
+          }); 
           event.stopPropagation();
         });
 
-        $(".deleteArticle").on("click", function(event) { // Event Listenr For Saved Article Delete Button
+        $(".deleteArticle").on("click", function(event) { 
           let modalID = $(this).parent().attr("id");
           let sessionArticle = JSON.parse(sessionStorage.getItem(modalID));
 
-          fetch("/api/deleteArticle", { // Send savedArticle to the Server
+          fetch("/api/deleteArticle", { // Send Saved Article
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
@@ -156,9 +155,10 @@ $(document).ready(function() {
             body: JSON.stringify(sessionArticle)
           }).then((response) => {
             console.log(response)
-            $("#modalMessage").modal('open');
-            $("#modalMessage .modal-content ").html('<h4> Sucessfully Deleted:' + sessionArticle["_id"] + "</h4>");
-            setTimeout(() => $("#modalMessage").modal('close'), 2000);
+            $("#messageModal").modal('open');
+            $("#messageModal .modal-content ").html('<h4> Sucessfully Deleted This Article'+ "</h4>");
+            // $("#messageModal .modal-content ").html('<h4> Sucessfully Deleted:' + sessionArticle["_id"] + "</h4>");
+            setTimeout(() => $("#messageModal").modal('close'), 2000);
             $(document.getElementById(sessionArticle["_id"])).css('display', 'none');
           });
 
@@ -167,5 +167,5 @@ $(document).ready(function() {
 
       });
     });
-  }); // End savedArticles btn Click
-}); // End of document.ready
+  }); 
+}); 

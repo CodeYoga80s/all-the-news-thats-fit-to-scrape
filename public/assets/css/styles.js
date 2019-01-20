@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   h4: {
-    color: 'white'
+    color: 'black'
   },
   hover: {
     backgroundColor: '#F44336'

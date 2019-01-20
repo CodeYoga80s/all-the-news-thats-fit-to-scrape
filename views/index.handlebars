@@ -1,26 +1,26 @@
 <!-- Nav Bar -->
-<nav>
-  <div class="nav-wrapper" style="border-bottom: 1px solid black;">
+<nav style="background-color: blue">
+  <div class="nav-wrapper">
     <ul class="left hide-on-med-and-down">
-      <a href="#" class="brand-logo center" style="position">NPR News<i class="fa fa-newspaper-o material-icons" style="height:auto;" aria-hidden="true"></i></a>
-      <li class="active"><a href="#">Home</a></li>
-      <li  class="modal-trigger savedArticles" href="#saveModal"><a>Saved Articles</a></li>
+      <a href="#" class="brand-logo center" style="position">NPR Music<i class="fa fa-music" aria-hidden="true" style="height:auto;" aria-hidden="true"></i></a>
+      <li><a class="waves-effect halfway-fab waves-effect waves-light hover searchArticle right"> Begin Scraping </a></li>
     </ul>
     <ul class="hide-on-med-and-down valign-wrapper right">
-      <li><a class="waves-effect halfway-fab waves-effect waves-light hover searchArticle right"> Scrape <i class="material-icons right">add</i></a></li>
+      <li class="active"><a href="#">Home</a></li>
+      <li  class="modal-trigger savedArticles" href="#modalSave"><a>Your Articles</a></li>
     </ul>
     <ul class="left hide-on-large-only">
-      <li class="modal-trigger savedArticles" href="#saveModal"><a>Saved Articles</a></li>
+      <li class="modal-trigger savedArticles" href="#modalSave"><a>Saved Articles</a></li>
       <li><i class="fa fa-newspaper-o material-icons" style="height:auto;" aria-hidden="true"></i></li>
     </ul>
     <ul class="hide-on-large-only valign-wrapper right">
-      <li><a class=" waves-effect halfway-fab waves-effect waves-light hover searchArticle right"><i class="material-icons">add</i></a></li>
+      <li><a class=" waves-effect halfway-fab waves-effect waves-light hover searchArticle right"><i class="material-icons">archive</i></a></li>
     </ul>
   </div>
 </nav>
 
-<!-- Main Container -->
-<div class="container">
+<!-- All the Content -->
+<div class="container" style="background-color: gold";>
   <div class="row">
     {{#each data}}
       <div class="col s12 m12 l6 xl4" id="{{this.url}}" style="display:inline-block;">
@@ -29,12 +29,12 @@
             <div style="background-color: rgba(0,0,0,0.25); height: 100%; width: 100%; position:absolute; z-index:100;"></div>
             <img src="{{this.imageURL}}">
             <span class="card-title" style="font-size:2.1vh; text-shadow: 1px white; z-index:101;">{{this.headline}}</span>
-            <a class="addArticle btn-floating halfway-fab waves-effect waves-light red modal-trigger" style="z-index:101;" href="#modalMessage" data-headline="{{this.headline}} " data-imageURL="{{this.imageURL}}" data-url="{{this.url}}" data-summary="{{this.summary}}"
-              data-slug="{{this.slug}}"><i class="material-icons">add</i></a>
+            <a class="addArticle btn-floating halfway-fab waves-effect waves-light pink modal-trigger" style="z-index:101;" href="#messageModal" data-headline="{{this.headline}} " data-imageURL="{{this.imageURL}}" data-url="{{this.url}}" data-summary="{{this.summary}}"
+              data-slug="{{this.slug}}"><i class="material-icons">archive</i></a>
           </div>
           <div class="card-content">
-            <span class="card-title activator grey-text text-darken-4">{{this.slug}}<i class="material-icons right">more_vert</i></span>
-            <p><a href="{{this.url}}">Link to Article</a></p>
+            <span class="card-title activator grey-text text-darken-4">{{this.slug}}<i class="material-icons right">more_horiz</i></span>
+            <p><a href="{{this.url}}">View This Article</a></p>
           </div>
           <div class="card-reveal" style="z-index:102;">
             <span class="card-title grey-text text-darken-4">{{this.slug}}<i class="material-icons right">close</i></span>
@@ -47,17 +47,16 @@
   </div>
 </div>
 
-<!-- Modals -->
 
-<!-- Message Modal -->
-<div id="modalMessage" class="modal waves-effect waves-green center" style="border:3px black solid height: 100%;">
-  <div class="modal-content pink">
-    <h4>Article Sucessfully Saved! <i class="fa fa-newspaper-o material-icons" style="height:auto;" aria-hidden="true"></i></h4>
+<!-- Modal for Messages -->
+<div id="messageModal" class="modal waves-effect waves-green center" style="border:3px white height: 100%;">
+  <div class="modal-content purple">
+    <h4>Saved Sucessfully! <i class="fa fa-newspaper-o material-icons" style="height:auto;" aria-hidden="true"></i></h4>
   </div>
 </div>
 
-<!-- Individual Saved Article Modal -->
-<div id="articleModal" class="modal modal-fixed-footer">
+<!-- Modal for saved articles -->
+<div id="modalArticle" class="modal modal-fixed-footer">
   <div class="modal-content center">
     <h4 style="color:black; margin-top: 20px; margin-bottom: 40px;">Article <span id="articleID"></span></h4>
     <div class="articleNotes">
@@ -69,7 +68,7 @@
             </div>
             <div class="card-stacked center">
               <div class="card-content valign-wrapper">
-                <p>No Notes.</p>
+                <p>There are no notes.</p>
               </div>
             </div>
           </div>
@@ -88,14 +87,14 @@
     </div>
   </div>
   <div class="modal-footer">
-    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat hover addComment" style="color:white;">Add</a>
+    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat hover addComment" style="color:rgb(3, 3, 3);">Add</a>
   </div>
 </div>
 
 <!-- Slide UP Articles Modal Structure -->
-<div id="saveModal" class="modal bottom-sheet">
-  <div class="modal-content">
-    <h4 style="color:black;">Saved Articles</h4>
+<div id="modalSave" class="modal bottom-sheet">
+  <div class="modal-content"style="background-color: pink">
+    <h4 style="color:rgb(241, 9, 191);">Your Articles</h4>
     <ul class="collection">
     </ul>
   </div>
