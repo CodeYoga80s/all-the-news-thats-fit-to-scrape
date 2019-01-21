@@ -6,7 +6,7 @@ let db = require("../models");
 
 /* Mongoose */ 
 mongoose.Promise = Promise; // 
-mongoose.connect("mongodb://heroku_5sx1msdj:s9unsruped4s8njmgfgfii7d51@ds011409.mlab.com:11409/heroku_5sx1msdj", { // Connect to the Mongo DB
+mongoose.connect("Heroku login and password", { // Connect to the Mongo DB
   useMongoClient: true
 });
 
