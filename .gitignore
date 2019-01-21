@@ -8,4 +8,4 @@ node_modules/
 jspm_packages/
 .npm
 .env
-MongoosePassword
+.txt
